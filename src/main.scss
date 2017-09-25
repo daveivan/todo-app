@@ -1,0 +1,413 @@
+@import 'custom';
+@import "~bootstrap/scss/bootstrap-reboot";
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300,400,700&subset=latin-ext');
+$font-color: #2D3142;
+$font-size: 14px;
+$icons-size-small: 18px;
+$icons-size-large: 26px;
+$color-completed: #A0A0A0;
+$btn-color: #8B8B8B;
+
+button:focus {outline:0;}
+
+body {
+    color: $font-color;
+    font-size: $font-size;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 300;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: #F2F1F8;
+}
+
+.container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.row {
+    margin-left: -15px;
+    margin-right: -15px;
+}
+
+a {
+    text-decoration: none;
+    -webkit-transition: color 0.25s;
+    transition: color 0.25s;
+    color: $btn-color;
+    &:hover,
+    &:active,
+    &:visited {
+        color: #2D3142;
+        text-decoration: none;
+    }
+}
+
+.header {
+    background-color: #993955;
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 25px;
+    h1 {
+        font-weight: 300;
+    }
+}
+
+.btn {
+    border: 0;
+    cursor: pointer;
+    background-color: transparent;
+    display: inline-block;
+    line-height: 1;
+    padding: 10px;
+    color: $btn-color;
+    -webkit-transition: color 0.25s;
+    transition: color 0.25s;
+    &:before {
+        font-family: FontAwesome;
+        font-size: $icons-size-small;
+    }
+
+    &:hover {
+        color: #2D3142;
+    }
+}
+
+.more-btn {
+    &:before {
+        content: '\f141';
+    }
+}
+
+.toggle-btn {
+    position: relative;
+    &:before {
+        content: '\f0ca';
+    }
+}
+
+.submit-btn {
+    &:before {
+        font-size: $icons-size-large;
+        content: '\f055';
+    }
+}
+
+.checkbox-link {
+    padding: 5px;
+    margin-right: 10px;
+    display: block;
+    line-height: 1;
+    z-index: 1;
+    opacity: 0;
+    color: $btn-color !important;
+    -webkit-transform: translate(-50px);
+            transform: translate(-50px);
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    &:before {
+        font-size: $icons-size-large;
+        content: '\f058';
+    }
+
+    &:hover {
+        color: #2D3142 !important;
+    }
+}
+
+#todo-listTMP, #todo-app {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 50px;
+}
+
+%item-wrapper {
+    background-color: white;
+    -webkit-box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.2);
+    box-shadow: 1px 1px 3px 0px rgba(50, 50, 50, 0.2);
+    margin: 5px 0px 5px 0px;
+    border-radius: 5px
+}
+
+%item {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    background-color: transparent;
+    padding: 10px;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+}
+
+.todo-wrapper {
+    @extend %item-wrapper;
+    >.todo-list {
+        padding-left: 30px;
+        margin: 5px;
+        border-top: 1px solid #D8D8D8;
+        >.todo-wrapper,
+        >.new-todo {
+            -webkit-box-shadow: none;
+            box-shadow: none;
+        }
+    }
+}
+
+.todo {
+    @extend %item;
+    .text {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 70%;
+        flex: 0 0 70%;
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        align-items: center;
+    }
+    .controls {
+        -webkit-box-flex: 0;
+        -ms-flex: 0 0 30%;
+        flex: 0 0 30%;
+        text-align: right;
+        position: relative;
+        //margin: 0px 5px 0px 5px;
+    }
+
+    &:hover {
+        a.checkbox-link {
+            opacity: 1;
+            -webkit-transform: translate(0px);
+                    transform: translate(0px);
+        }
+    }
+}
+
+.todo.completed .checkbox-link {
+    opacity: 1;
+    -webkit-transform: translate(0px);
+            transform: translate(0px);
+    color: #ACABAB;
+}
+
+.todo.completed .text{
+    color: $color-completed;
+    position: relative; //z-index: 1;
+    &:after {
+        position: absolute;
+        display: block;
+        height: 1px;
+        background-color: $color-completed;
+        top: 50%;
+        content: '';
+        //left: 10px;
+        //right: 70px;
+        width: 100%;
+        z-index: 0;
+    }
+}
+
+.new-todo {
+    @extend %item;
+    @extend %item-wrapper;
+    position: relative;
+    background-color: #fff;
+    input {
+        width: 100%;
+        padding: 10px 10px 10px 45px;
+        border: 0px;
+        border-bottom: 1px solid #E0E0E0;
+        @include placeholder(#C7C7C7); //color: #C7C7C7;
+        color: $font-color;
+        font-weight: 100;
+    }
+    .submit-btn {
+        position: absolute;
+        left: 5px;
+    }
+}
+
+.counter {
+    background-color: #CFCFCF;
+    font-size: 10px;
+    border-radius: 10px;
+    width: 15px;
+    height: 15px;
+    line-height: 1.5;
+    display: inline-block;
+    position: absolute;
+    right: 4px;
+    top: 6px;
+}
+
+.timestamp {
+    padding-left: 42px;
+    font-size: 10px;
+    color: #ACABAB;
+    padding-bottom: 5px;
+    -webkit-box-flex: 0;
+        -ms-flex: 0 0 100%;
+            flex: 0 0 100%;
+}
+
+.btn-menu {
+    position: absolute;
+        display: inline-block;
+        border: 1px solid #fff;
+        border-radius: 20px;
+        width: 40px;
+        height: 40px;
+        right: -7px;
+        bottom: 0px;
+        cursor: pointer;
+        background-color: #fff;
+        line-height: 1;
+        -webkit-box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.2);
+        box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.2);
+        -webkit-transition: all 0.25s;
+        transition: all 0.25s;
+        visibility: hidden;
+
+        &:before {
+            font-family: FontAwesome;
+            font-size: $icons-size-small;
+        }
+
+        &.del-btn {
+            opacity: 0;
+            -webkit-transform: translate(0px);
+                    transform: translate(0px);
+            //transition-delay: 0.2s;
+
+            &:before {
+                content: '\f1f8';
+            }
+        }
+
+        &.edit-btn {
+            opacity: 0;
+            -webkit-transform: translate(0px);
+                    transform: translate(0px);
+
+            &:before {
+                content: '\f040';
+            }
+        }
+        
+        &:hover {
+            color: #fff;
+            background-color: #2D3142;
+            border: 1px solid #2D3142;
+        }
+}
+
+.del-btn.active {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: translate(-40px);
+            transform: translate(-40px);
+}
+
+.edit-btn.active {
+    visibility: visible;
+    opacity: 1;
+    -webkit-transform: translate(-90px);
+            transform: translate(-90px);
+}
+
+.menu {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    margin-left: 15px;
+    margin-right: 15px;
+
+    li {
+        display: inline-block;
+    }
+
+    a.btn {
+        background-color: #fff;
+        border: 1px solid #fff;
+        border-radius: 3px;
+        -webkit-box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.2);
+        box-shadow: 0px 1px 3px 0px rgba(50, 50, 50, 0.2);
+        font-size: 12px;
+        margin: 5px;
+        -webkit-transition: all 0.25s;
+        transition: all 0.25s;
+        font-weight: 400;
+        padding: 15px 10px;
+
+        &:hover {
+            color: #fff;
+            background-color: #2D3142;
+            border: 1px solid #2D3142;
+        }
+    }
+
+    .fa {
+        font-size: 16px;
+        padding-right: 5px;
+    }
+}
+
+.footer {
+    text-align: center;
+    font-size: 12px;
+
+    a {
+        color: #8D8D8D;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    body {
+        font-size: 16px;
+    }
+
+    .container {
+        max-width: 680px;
+    }
+
+    .fluid {
+        max-width: 100%;
+    }
+
+    .todo-wrapper {
+        margin: 10px;
+    }
+
+    .timestamp {
+        font-size: 12px;
+    }
+
+    .menu {
+        margin-top: 60px;
+    }
+}
+
+/* .todo-wrapper {
+    .todo {
+        .text {
+        
+        }
+
+        .controls {
+
+        }
+    }
+} */
